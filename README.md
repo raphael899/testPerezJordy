@@ -1,3 +1,5 @@
+El proyecto esta compuesto de tres ramas main , frontend y backend 
+
 Script Base de datos
 sql
 
