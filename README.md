@@ -1,5 +1,6 @@
-# testPerezJordy
-Script Base de datos 
+Script Base de datos
+sql
+
 -- Crear la base de datos
 CREATE DATABASE eventos;
 
