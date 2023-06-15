@@ -1,20 +1,19 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import './styles/eventosList.css';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Link } from 'react-router-dom';
+import "./styles/eventosList.css";
 
 const EventosList = () => {
   const [eventos, setEventos] = useState([]);
-  const [nombreInstitucion, setNombreInstitucion] = useState('');
-  const [direccionInstitucion, setDireccionInstitucion] = useState('');
+  const [nombreInstitucion, setNombreInstitucion] = useState("");
+  const [direccionInstitucion, setDireccionInstitucion] = useState("");
   const [numeroAlumnos, setNumeroAlumnos] = useState(0);
-  const [horaInicio, setHoraInicio] = useState('');
+  const [horaInicio, setHoraInicio] = useState("");
   const [agregarTogaBirrete, setAgregarTogaBirrete] = useState(false);
-  const baseUrl = 'https://localhost:7047/api';
-  const imeiUrl = 'https://api.iotsol.net/api/GetIMEIDataServicesBy|MEIAndCompany';
+  const baseUrl = "https://localhost:7047/api";
 
   useEffect(() => {
     fetchEventos();
-    fetchImeiData();
   }, []);
 
   const fetchEventos = async () => {
@@ -25,25 +24,17 @@ const EventosList = () => {
       console.error(error);
     }
   };
-  
-  const fetchImeiData = async () => {
-    try {
-      const requestData = {
-        IMEI: '354330030646882',
-        CompanyID: 10
-      };
-      const response = await axios.post(imeiUrl, requestData);
-      console.log(response)
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const agregarEvento = async (e) => {
     e.preventDefault();
 
-    if (!nombreInstitucion || !direccionInstitucion || !numeroAlumnos || !horaInicio) {
-      alert('Por favor, complete todos los campos obligatorios.');
+    if (
+      !nombreInstitucion ||
+      !direccionInstitucion ||
+      !numeroAlumnos ||
+      !horaInicio
+    ) {
+      alert("Por favor, complete todos los campos obligatorios.");
       return;
     }
 
@@ -52,7 +43,7 @@ const EventosList = () => {
       DireccionInstitucion: direccionInstitucion,
       NumeroAlumnos: numeroAlumnos,
       HoraInicio: horaInicio,
-      AgregarTogaBirrete: agregarTogaBirrete
+      AgregarTogaBirrete: agregarTogaBirrete,
     };
 
     try {
@@ -66,10 +57,10 @@ const EventosList = () => {
   };
 
   const limpiarFormulario = () => {
-    setNombreInstitucion('');
-    setDireccionInstitucion('');
+    setNombreInstitucion("");
+    setDireccionInstitucion("");
     setNumeroAlumnos(0);
-    setHoraInicio('');
+    setHoraInicio("");
     setAgregarTogaBirrete(false);
   };
 
@@ -77,7 +68,7 @@ const EventosList = () => {
     const fecha = new Date(fechaCompleta);
     const hora = fecha.getHours();
     const minutos = fecha.getMinutes();
-    return `${hora}:${minutos < 10 ? '0' + minutos : minutos}`;
+    return `${hora}:${minutos < 10 ? "0" + minutos : minutos}`;
   };
 
   return (
@@ -150,6 +141,12 @@ const EventosList = () => {
           ))}
         </tbody>
       </table>
+
+      <div className="center-align">
+        <Link to="/vista-consumo-api" className="redirigir-button">
+          Redirigir a vista de consumo de API
+        </Link>{" "}
+      </div>
     </div>
   );
 };
